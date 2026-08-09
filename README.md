@@ -2,7 +2,9 @@
 
 Recentemente, conduzi um case prático unindo Python (Pandas), análise logística e telemetria IoT para otimizar o monitoramento da cadeia de distribuição e cultivo de orquídeas.O projeto consistiu no cruzamento de três bases de dados (entregas_orquideas.csv, estufas_qualidade.csv e telemetria_iot.csv) para mapear volumes, gargalos de entrega e riscos térmicos no transporte.
 
-📊 Principais Resultados da Análise:• Volume Distribuído: 55.425 orquídeas transportadas com sucesso.
+📊 Principais Resultados da Análise:
+
+• Volume Distribuído: 55.425 orquídeas transportadas com sucesso.
 • Eficiência Logística: Identificação de 27 entregas canceladas, com foco analítico no estado de São Paulo (SP) como a região com maior impacto em perdas.
 • Monitoramento IoT: Implementação de uma regra automatizada em Python para rastreio térmico ($\ge 28\text{ °C}$ como limiar de risco), registrando uma temperatura máxima de 34 °C e média operando em 27.0 °C.
 
