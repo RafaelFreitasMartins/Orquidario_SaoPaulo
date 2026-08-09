@@ -1,0 +1,49 @@
+import pandas as pd
+
+# 1. Leitura dos Dados
+dados_entregas = '/content/entregas_orquideas.csv'
+df_dados_entregas = pd.read_csv(dados_entregas)
+
+dados_estufa = '/content/estufas_qualidade.csv'
+df_dados_estufa = pd.read_csv(dados_estufa)
+
+dados_telemetria = '/content/telemetria_iot.csv'
+df_dados_telemetria = pd.read_csv(dados_telemetria)
+
+# 2. Tratamento e Classificação de Temperatura (IoT)
+lista_temperatura = []
+lista_temperaturas_c = df_dados_telemetria['Temperatura_C'].tolist()
+
+for temp_val in lista_temperaturas_c:
+  if temp_val >= 28:
+    lista_temperatura.append('ALERTA')
+  else:
+    lista_temperatura.append('OK')
+
+df_dados_telemetria['Alerta_Temperatura'] = lista_temperatura
+
+# 3. Métricas e Exercícios
+# Total da quantidade de orquídeas transportadas
+total_orquideas = df_dados_entregas['Qtd_Orquideas'].sum()
+print(f'Total de orquídeas transportadas: {total_orquideas}')
+
+# Quantidade de entregas canceladas
+total_canceladas = (df_dados_entregas['Status_Entrega'] == 'Cancelado').sum()
+print(f'Quantidade de entregas canceladas: {total_canceladas}')
+
+# Impacto Regional (Estado com mais perdas/cancelamentos)
+impacto = (
+    df_dados_entregas[df_dados_entregas['Status_Entrega'] == 'Cancelado'][
+        'UF_Destino'
+    ]
+    .value_counts()
+    .idxmax()
+)
+print(f'O Estado que teve mais perda foi: {impacto}')
+
+# Análise de Temperatura: Máxima e Média
+temperatura_maxima = df_dados_telemetria['Temperatura_C'].max()
+print(f'A temperatura máxima é de: {temperatura_maxima} °C')
+
+media_temperatura = df_dados_telemetria['Temperatura_C'].mean()
+print(f'A temperatura média é de: {media_temperatura} °C')
